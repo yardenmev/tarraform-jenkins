@@ -16,7 +16,7 @@ pipeline {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {             
         sh 'terraform init'
-        sh 'terraform apply -var vpc_name-${VPC_NAME} -auto-approve  -no-color'
+        sh 'terraform apply -var vpc_name=${VPC_NAME} -auto-approve  -no-color'
         }
         
       }
