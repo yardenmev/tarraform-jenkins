@@ -2,11 +2,11 @@ pipeline {
   agent any
   environment {
     TF_VAR_VPC_NAME = ${params.VPC_NAME}
-  }
+    }
   parameters {
       booleanParam(name: 'destroy', defaultValue: false, description: 'Check to destroy Terraform instead of applying.')
       string(name: 'VPC_NAME', defaultValue: 'yarden_vpc', description: 'name of the vpc')  
-  }
+      }
   
   
   stages{
