@@ -9,9 +9,9 @@ provider "aws" {
   }
 }
 terraform {
-  backend "s3"{
+  backend "s3" {
     bucket = "yarden-s3"
-    key = "vpc"
+    key    = "vpc"
     region = "eu-west-1"
   }
 }
@@ -21,14 +21,17 @@ module "vpc" {
   name = "my-vpc"
   cidr = var.cidr
 
-  azs             = var.azs
-  private_subnets = var.private_subnets
-  public_subnets  = var.public_subnets
+  azs                 = var.azs
+  private_subnets     = var.private_subnets
+  public_subnet_tags  = var.public_subnet_tags
+  public_subnets      = var.public_subnets
+  private_subnet_tags = var.private_subnet_tags
+
 
   enable_nat_gateway = true
-  single_nat_gateway  = true
+  single_nat_gateway = true
 
   tags = {
-    
+
   }
 }
