@@ -18,7 +18,7 @@ terraform {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = vpc_name
+  name = var.vpc_name
   cidr = var.cidr
 
   azs                 = var.azs
