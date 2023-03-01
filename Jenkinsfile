@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    TF_VAR_VPC_NAME = ${params.VPC_NAME}
+    VPC_NAME="${params.VPC_NAME}"
     }
   parameters {
       booleanParam(name: 'destroy', defaultValue: false, description: 'Check to destroy Terraform instead of applying.')
@@ -11,6 +11,9 @@ pipeline {
   
   stages{
     stage('Terraform Init') {
+      when {
+        expression { !params.destroy }
+      }
       steps {
         withCredentials([[
         $class: 'AmazonWebServicesCredentialsBinding',
@@ -19,9 +22,9 @@ pipeline {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {        
         sh """
-        export TF_VAR_VPC_NAME=${params.VPC_NAME}
+        export VPC_NAME=${params.VPC_NAME}
         terraform init
-        terraform apply -var vpc_name=${VPC_NAME} -auto-approve  -no-color
+        terraform apply -var 'vpc_name=${VPC_NAME}' -auto-approve  -no-color
         """
         }
         
